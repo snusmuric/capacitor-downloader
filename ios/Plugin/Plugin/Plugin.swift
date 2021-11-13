@@ -111,7 +111,7 @@ public class DownloaderPlugin: CAPPlugin {
                     data["speed"] = speed;
                     let d = DownloaderPlugin.downloadsData[id]
                     let callId = d!["call"] as! String
-                    let _call = self.bridge.getSavedCall(callId)
+                        let _call = self.bridge?.getSavedCall(callId)
                     _call?.success(data)
                     lastRefreshTime = Int64(Date().timeIntervalSince1970 * 1000)
                     lastBytesWritten = currentBytes ;
@@ -126,16 +126,16 @@ public class DownloaderPlugin: CAPPlugin {
                 case .success( _):
                     let d = DownloaderPlugin.downloadsData[id]
                     let callId = d!["call"] as! String
-                    let _call = self.bridge.getSavedCall(callId)
+                        let _call = self.bridge?.getSavedCall(callId)
                     var data = JSObject()
                     data["status"] = StatusCode.COMPLETED.rawValue
-                    data["path"] = CAPFileManager.getPortablePath(host: self.bridge.getLocalUrl(), uri: response.destinationURL)
+                        data["path"] = CAPFileManager.getPortablePath(host: (self.bridge?.getLocalUrl())!, uri: response.destinationURL)
                     _call?.success(data)
                     break;
                 case .failure(let error):
                     let d = DownloaderPlugin.downloadsData[id]
                     let callId = d!["call"] as! String
-                    let _call = self.bridge.getSavedCall(callId)
+                        let _call = self.bridge?.getSavedCall(callId)
                     _call?.error(error.localizedDescription)
                     break;
                 }
